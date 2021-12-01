@@ -1,0 +1,52 @@
+@import "~@fontsource/dancing-script";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/solid";
+@import "~@fortawesome/fontawesome-free/scss/regular";
+
+$text-color: rgb(172, 172, 172);
+
+$primary: pink;
+$pagination-bg: #666666;
+@import "~bootstrap";
+
+.card {
+    background-color: #666666;
+}
+
+.page-item {
+    &.active {
+        .page-link {
+            color: #333;
+        }
+    }
+    &.disabled {
+        .page-link {
+            color: darkgray;
+            background-color: #666666;
+        }
+    }
+}
+
+.text-pink {
+    color: pink;
+}
+
+body {
+    background-color: #333;
+
+    h1 {
+        font-family: 'Dancing Script';
+        font-size: 3rem;
+        color: $primary;
+        margin-bottom: 3rem;
+    }
+
+    label, legend {
+        color: $primary;
+    }
+
+    main {
+        margin-top: 4rem;
+        margin-bottom: 3rem;
+    }
+}

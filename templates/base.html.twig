@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Recipes eBook{% block title %}{% endblock %}</title>
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+         {% set show_header = app.request.attributes.get('_route') != 'homepage' %}
+        {% if show_header %}
+            {% include '_fragment/_header.html.twig' %}
+        {% endif %}
+        <main class="container {% if show_header == false %}mt-0 mb-0{% endif %}">
+            {% include '_fragment/_flash.html.twig' %}
+            {% block body %}{% endblock %}
+        </main>
+    </body>
+</html>

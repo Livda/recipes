@@ -1,0 +1,28 @@
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ path('homepage') }}">Recipes eBook</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarHeader">
+            <ul class="navbar-nav me-auto">
+                {% if is_granted('ROLE_USER') %}
+                    <li class="nav-item {% if false %}active{% endif %}">
+                        <a class="nav-link" href="#">
+                            Ajouter une recette
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+            {% if app.user is null %}
+                <a class="btn btn-primary" href="{{ path('app_login') }}">
+                    Connexion
+                </a>
+            {% else %}
+                <a class="btn btn-danger" href="{{ path('app_logout') }}">
+                    Déconnexion
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</nav>

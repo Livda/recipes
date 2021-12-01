@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  database:
+    build:
+      context: ./docker/database
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-symfony}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-symfony}
+      POSTGRES_USER: ${POSTGRES_USER:-symfony}
+    volumes:
+      - ./docker/database/data:/var/lib/postgresql/data:rw
+    ports:
+      - 5432:5432
+    user: symfony
