@@ -27,6 +27,14 @@ $pagination-bg: #666666;
     }
 }
 
+.swal2-popup {
+    background: #333 !important;
+}
+
+.swal2-title, .swal2-html-container {
+    color: white !important;
+}
+
 .text-pink {
     color: pink;
 }

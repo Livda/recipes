@@ -13,7 +13,13 @@
                 <div class="card h-100">
                     <div class="card-body">
                         {% if is_granted('ROLE_USER') %}
-                            <a class="btn btn-sm btn-outline-danger float-end" href="{{ path('app_recipe_delete', {'id': recipe.id}) }}">
+                            <a  class="btn btn-sm btn-outline-danger float-end" 
+                                href="{{ path('app_recipe_delete-confirmed', {'id': recipe.id}) }}"
+                                data-action="alert#send"
+                                {{ stimulus_controller('alert', {
+                                    text: 'Voulez vous supprimer la recette %s ?'|format(recipe.name)
+                                }) }}
+                            >
                                 <i class="far fa-trash-alt"></i>
                             </a>
                             <a class="btn btn-sm btn-outline-light me-2 float-end" href="{{ path('app_recipe_edit', {'id': recipe.id}) }}">
