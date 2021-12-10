@@ -20,6 +20,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180, type: Types::STRING, unique: true)]
     private string $username;
 
+    /** @var string[] $roles */
     #[ORM\Column(type: Types::JSON)]
     private array $roles = [];
 
@@ -99,7 +100,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see UserInterface
      */
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;

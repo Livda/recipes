@@ -7,42 +7,42 @@
             {# @TODO add search bar #}
         </div>
     </div>
-    <div class="row">
-    {% for recipe in recipes %}
-        <div class="col-sm-12 col-md-6 col-xl-4 pb-2">
-            <div class="card h-100">
-                <div class="card-body">
-                    {% if is_granted('ROLE_USER') %}
-                        <a class="btn btn-sm btn-outline-danger float-end" href="{{ path('app_recipe_delete', {'id': recipe.id}) }}">
-                            <i class="far fa-trash-alt"></i>
-                        </a>
-                        <a class="btn btn-sm btn-outline-light me-2 float-end" href="{{ path('app_recipe_edit', {'id': recipe.id}) }}">
-                            <i class="fas fa-pencil-alt"></i>
-                        </a>
-                    {% endif %}
-                    <h5 class="card-title text-pink">{{ recipe.name }}</h5>
-                    <p class="card-text">
-                        {% for tag in recipe.tags %}
-                            <span class="badge rounded-pill bg-light text-dark">
-                                #{{ tag }}
-                            </span>
-                        {% endfor %}
-                    </p>
-                    {% if recipe.note is not null %}
-                        <div class="card bg-dark mb-2">
-                            <div class="card-body pb-2">
-                                <p class="text-light">{{ recipe.note }}</p>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3">
+        {% for recipe in recipes %}
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        {% if is_granted('ROLE_USER') %}
+                            <a class="btn btn-sm btn-outline-danger float-end" href="{{ path('app_recipe_delete', {'id': recipe.id}) }}">
+                                <i class="far fa-trash-alt"></i>
+                            </a>
+                            <a class="btn btn-sm btn-outline-light me-2 float-end" href="{{ path('app_recipe_edit', {'id': recipe.id}) }}">
+                                <i class="fas fa-pencil-alt"></i>
+                            </a>
+                        {% endif %}
+                        <h5 class="card-title text-pink">{{ recipe.name }}</h5>
+                        <p class="card-text">
+                            {% for tag in recipe.tags %}
+                                <span class="badge rounded-pill bg-light text-dark">
+                                    #{{ tag }}
+                                </span>
+                            {% endfor %}
+                        </p>
+                        {% if recipe.note is not null %}
+                            <div class="card bg-dark mb-2">
+                                <div class="card-body pb-2">
+                                    <p class="text-light">{{ recipe.note }}</p>
+                                </div>
                             </div>
-                        </div>
-                    {% endif %}
-                    <a class="card-link text-light" href="{{ recipe.url }}" target="_blank" rel="noopener noreferrer">
-                        <u>Lien vers la recette</u>
-                    </a>
+                        {% endif %}
+                        <a class="card-link text-light" href="{{ recipe.url }}" target="_blank" rel="noopener noreferrer">
+                            <u>Lien vers la recette</u>
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
-   </div>
+        {% endfor %}
+    </div>
     <div class="row mt-2">
         <div class="col-12">
             <div class="navigation">

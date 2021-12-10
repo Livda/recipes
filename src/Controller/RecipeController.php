@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 class RecipeController extends AbstractController
 {
     #[IsGranted('ROLE_USER')]
-    #[Route('/delete/{id}', name: 'delete', methods: ['GET'])]
+    #[Route('/{id}/delete', name: 'delete', methods: ['GET'])]
     public function delete(Recipe $recipe): Response
     {
         return $this->render('recipe/delete.html.twig', [
@@ -29,10 +29,12 @@ class RecipeController extends AbstractController
     }
 
     #[IsGranted('ROLE_USER')]
-    #[Route('/delete-confirmed/{id}', name: 'delete-confirmed', methods: ['GET'])]
+    #[Route('/{id}/delete-confirmed', name: 'delete-confirmed', methods: ['GET'])]
     public function deleteConfirmed(Recipe $recipe, RemoveRecipeHandler $handler): Response
     {
-        $handler->byId(new RemoveRecipeById($recipe->getId()));
+        /** @var int $id */
+        $id = $recipe->getId();
+        $handler->byId(new RemoveRecipeById($id));
 
         $this->addFlash('success', sprintf('La recette %s a bien été supprimée.', $recipe->getName()));
 
@@ -40,19 +42,26 @@ class RecipeController extends AbstractController
     }
 
     #[IsGranted('ROLE_USER')]
+    #[Route('/{id}/edit', name: 'edit', methods: ['GET'])]
+    public function edit(Recipe $recipe): Response
+    {
+        return $this->redirectToRoute('app_recipe_index');
+    }
+
+    #[IsGranted('ROLE_USER')]
     #[Route('/save', name: 'save')]
     public function save(Request $request, SaveRecipeHandler $handler): Response
     {
-        if ($this->isCsrfTokenValid('recipe', $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('recipe', (string) $request->request->get('_token'))) {
             throw new BadRequestException('Invalid CSRF token provided');
         }
 
         try {
             $recipe = $handler->byForm(new SaveRecipeByForm(
                 name: $request->request->get('name'),
-                diet: $this->request->get('diet'),
-                season: $this->request->get('season'),
-                url: $this->request->get('url'),
+                diet: $request->request->get('diet'),
+                season: $request->request->get('season'),
+                url: $request->request->get('url'),
             ));
         } catch (Exception $e) {
         }
@@ -60,7 +69,6 @@ class RecipeController extends AbstractController
         return $this->redirectToRoute('app_recipe_index');
     }
 
-    #[IsGranted('ROLE_USER')]
     #[Route('/', name: 'index')]
     public function index(RecipeRepository $repository): Response
     {
