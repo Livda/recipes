@@ -7,8 +7,6 @@ use App\Tests\Helper\GetterNullableTestInterface;
 use App\Tests\Helper\GetterNullableTestTrait;
 use App\Tests\Helper\GetterTestInterface;
 use App\Tests\Helper\GetterTestTrait;
-use App\Tests\Helper\SetterNullableTestInterface;
-use App\Tests\Helper\SetterNullableTestTrait;
 use App\Tests\Helper\SetterTestInterface;
 use App\Tests\Helper\SetterTestTrait;
 use PHPUnit\Framework\TestCase;

@@ -7,7 +7,7 @@ trait FunctionNameGeneratorTrait
     private function functionsForPrefixes(object $object, string $attribute, array $prefixes): array
     {
         $methods = array_map(
-            callback: fn (string $prefix) => $prefix . ucfirst($attribute),
+            callback: fn (string $prefix) => $prefix.ucfirst($attribute),
             array: $prefixes,
         );
 

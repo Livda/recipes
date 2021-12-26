@@ -4,7 +4,6 @@ namespace App\Tests\Medium\Repository;
 
 use App\Entity\Recipe;
 use App\Repository\RecipeRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 

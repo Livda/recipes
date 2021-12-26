@@ -4,7 +4,6 @@ namespace App\Component\Recipe;
 
 use App\Entity\Recipe;
 use App\Repository\RecipeRepository;
-use Exception;
 
 class RecipeWriter
 {

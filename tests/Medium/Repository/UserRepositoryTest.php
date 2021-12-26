@@ -2,12 +2,8 @@
 
 namespace App\Tests\Medium\Repository;
 
-use App\Entity\Recipe;
 use App\Entity\User;
-use App\Repository\RecipeRepository;
 use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManager;
-use Exception;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;

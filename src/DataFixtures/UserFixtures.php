@@ -20,7 +20,7 @@ class UserFixtures extends Fixture
             username: 'admin',
             password: '',
             roles: [
-                'ROLE_ADMIN'
+                'ROLE_ADMIN',
             ],
         );
         $admin->setPassword($this->hasher->hashPassword($admin, 'admin'));
@@ -30,7 +30,7 @@ class UserFixtures extends Fixture
             username: 'user',
             password: '',
             roles: [
-                'ROLE_USER'
+                'ROLE_USER',
             ],
         );
         $user->setPassword($this->hasher->hashPassword($user, 'user'));

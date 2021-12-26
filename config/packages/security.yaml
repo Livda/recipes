@@ -18,6 +18,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+            pattern: ^/
             lazy: true
             provider: app_user_provider
 
@@ -30,13 +31,10 @@ security:
             remember_me:
                 lifetime: 604800 # 1 week in seconds
                 name: 'RECIPE-REMEMBER-ME'
-                path:     /
-                secret:   '%kernel.secret%'
+                path: /
+                secret: '%kernel.secret%'
             logout:
                 path: app_logout
-
-            # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used

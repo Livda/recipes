@@ -8,7 +8,7 @@
             <ul class="navbar-nav me-auto">
                 {% if is_granted('ROLE_USER') %}
                     <li class="nav-item {% if false %}active{% endif %}">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{{ path('app_recipe_new') }}">
                             Ajouter une recette
                         </a>
                     </li>

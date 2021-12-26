@@ -2,8 +2,12 @@
 
 namespace App\Action\Recipe;
 
+use App\Service\StringHandler;
+
 class SaveRecipeByForm
 {
+    use StringHandler;
+
     public function __construct(
         private string $name,
         private string $diet,
@@ -16,7 +20,7 @@ class SaveRecipeByForm
 
     public function getDiet(): string
     {
-        return $this->diet;
+        return trim($this->diet);
     }
 
     public function getId(): ?int
@@ -26,21 +30,21 @@ class SaveRecipeByForm
 
     public function getName(): string
     {
-        return $this->name;
+        return trim($this->name);
     }
 
     public function getNote(): ?string
     {
-        return $this->note;
+        return $this->nullable($this->note);
     }
 
     public function getSeason(): string
     {
-        return $this->season;
+        return trim($this->season);
     }
 
     public function getUrl(): string
     {
-        return $this->url;
+        return trim($this->url);
     }
 }

@@ -1,5 +1,18 @@
 SHELL := /bin/bash
 
+phpcs:
+	./vendor/bin/php-cs-fixer fix
+.PHONY: phpcs
+
+phpstan:
+	./vendor/bin/phpstan --configuration=.phpstan.neon.dist
+.PHONY: phpstan
+
+up:
+	docker-compose up -d
+	symfony serve
+.PHONY: up
+
 tests: export APP_ENV=test
 tests:
 	symfony console doctrine:database:create --if-not-exists

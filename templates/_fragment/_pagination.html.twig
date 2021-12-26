@@ -4,7 +4,7 @@
         {% set classSize = (size is not defined) ? '' : size=='large' ? ' pagination-lg' : (size=='small' ? ' pagination-sm' : '') %}
         <ul class="pagination{{ classAlign }}{{ classSize }}">
 
-            {% if previous is defined %}
+            {% if previous is not null %}
                 <li class="page-item">
                     <a class="page-link" rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">&laquo;&nbsp;{{ 'Prédécentes' }}</a>
                 </li>
@@ -59,9 +59,9 @@
                 </li>
             {% endif %}
 
-            {% if next is defined %}
+            {% if next is not null %}
                 <li class="page-item">
-                    <a class="page-link" rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}">{{  'Suivantes'  }}&nbsp;&raquo;</a>
+                    <a class="page-link" rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}">{{ 'Suivantes' }}&nbsp;&raquo;</a>
                 </li>
             {% else %}
                 <li  class="page-item disabled">

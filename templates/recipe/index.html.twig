@@ -2,9 +2,11 @@
 
 {% block title 'Liste des recettes' %}
 {% block body %}
+    {% include '_fragment/_flash.html.twig' %}
+
     <div class="row mb-2">
         <div class="col">
-            {# @TODO add search bar #}
+            {% include '_fragment/_search_bar.html.twig' %}
         </div>
     </div>
     <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3">
@@ -52,9 +54,9 @@
     <div class="row mt-2">
         <div class="col-12">
             <div class="navigation">
-                {# {{ knp_pagination_render(pagination, null, {}, {
-                    'align' : 'center',
-                }) }} #}
+                {% include '_fragment/_pagination.html.twig' with {
+                    align: 'center',
+                } %}
             </div>
         </div>
     </div>

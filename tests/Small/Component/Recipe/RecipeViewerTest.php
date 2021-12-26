@@ -2,10 +2,10 @@
 
 namespace App\Tests\Small\Component\Recipe;
 
-use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
 use App\Component\Recipe\RecipeViewer;
 use App\Entity\Recipe;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
 class RecipeViewerTest extends TestCase
 {
