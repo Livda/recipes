@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Action\Recipe\RemoveRecipeById;
 use App\Action\Recipe\SaveRecipeByForm;
 use App\Entity\Recipe;
+use App\Enum\DietEnum;
+use App\Enum\SeasonEnum;
 use App\Handler\Recipe\RemoveRecipeHandler;
 use App\Handler\Recipe\SaveRecipeHandler;
 use App\Repository\RecipeRepository;
@@ -81,8 +83,27 @@ class RecipeController extends AbstractController
     #[Route('/', name: 'index')]
     public function index(RecipeRepository $repository, Request $request): Response
     {
-        $nbItemsPerPage = 5;
-        $totalCount = $repository->count([]);
+        $diet = DietEnum::ALL;
+        if ($request->query->has('diet')) {
+            $diet = (string) $request->query->get('diet');
+        }
+
+        $season = SeasonEnum::ALL_SEASONS;
+        if ($request->query->has('season')) {
+            $season = (string) $request->query->get('season');
+        }
+
+        $search = null;
+        if ($request->query->has('search')) {
+            $search = (string) $request->query->get('search');
+        }
+
+        $nbItemsPerPage = 24;
+        $totalCount = $repository->countBySeasonAndDietWithSearchQuery(
+            season: $season,
+            diet: $diet,
+            search: $search,
+        );
         $pageCount = (int) ceil($totalCount / $nbItemsPerPage);
         $current = 1;
         if ($request->query->has('page')) {
@@ -132,8 +153,10 @@ class RecipeController extends AbstractController
             $next = $current + 1;
         }
 
-        $recipes = $repository->findBy(
-            criteria: [],
+        $recipes = $repository->findBySeasonAndDietWithSearchQuery(
+            season: $season,
+            diet: $diet,
+            search: $search,
             orderBy: ['name' => 'ASC'],
             limit: $nbItemsPerPage,
             offset: max(0, $current - 1) * $nbItemsPerPage,
@@ -145,7 +168,11 @@ class RecipeController extends AbstractController
             'startPage' => $startPage,
             'current' => $current,
             'route' => 'app_recipe_index',
-            'query' => [],
+            'query' => [
+                'diet' => $diet,
+                'season' => $season,
+                'search' => $search,
+            ],
             'endPage' => $endPage,
             'pageParameterName' => 'page',
             'pagesInRange' => $pages,

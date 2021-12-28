@@ -24,24 +24,42 @@ class RecipeRepository extends ServiceEntityRepository implements RepositoryInte
     /**
      * @return Recipe[]
      */
-    public function search(?string $season = null, ?string $diet = null, ?string $search = null): array
+    public function findBySeasonAndDietWithSearchQuery(
+        string $season, 
+        string $diet, 
+        ?string $search = null, 
+        array $orderBy = null, 
+        int $limit = null, 
+        int $offset = null,
+        ): array
     {
-        return $this->searchQuery($season, $diet, $search)
+        return $this->generateQueryBuilder($season, $diet, $search, $orderBy, $limit, $offset)
             ->getQuery()
             ->getResult()
         ;
     }
 
-    public function countWithSearch(?string $season = null, ?string $diet = null, ?string $search = null): int
+    public function countBySeasonAndDietWithSearchQuery(
+        string $season , 
+        string $diet , 
+        ?string $search = null
+        ): int
     {
-        return (int) $this->searchQuery($season, $diet, $search)
-            ->select('COUNT(id)')
+        return (int) $this->generateQueryBuilder($season, $diet, $search)
+            ->select('COUNT(r.id)')
             ->getQuery()
-            ->getResult()
+            ->getSingleScalarResult()
         ;
     }
 
-    public function searchQuery(?string $season = null, ?string $diet = null, ?string $search = null): QueryBuilder
+    public function generateQueryBuilder(
+        string $season, 
+        string $diet, 
+        ?string $search = null, 
+        array $orderBy = null, 
+        int $limit = null, 
+        int $offset = null,
+        ): QueryBuilder
     {
         $qb = $this->createQueryBuilder('r');
         if (null !== $season && SeasonEnum::ALL_SEASONS !== $season) {
@@ -61,6 +79,15 @@ class RecipeRepository extends ServiceEntityRepository implements RepositoryInte
                 $qb->setParameter('shard'.$index, '%'.$shard.'%');
             }
         }
+
+        if (null !== $orderBy) {
+            foreach ($orderBy as $field => $order) {
+                $qb->addOrderBy('r.' . $field, $order);
+            }
+        }
+
+        $qb->setMaxResults($limit);
+        $qb->setFirstResult($offset);
 
         return $qb;
     }

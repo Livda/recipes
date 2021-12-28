@@ -5,11 +5,12 @@ services:
     build:
       context: ./docker/database
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-symfony}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-symfony}
-      POSTGRES_USER: ${POSTGRES_USER:-symfony}
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:-symfony}
+      MARIADB_DATABASE: ${MARIADB_DATABASE:-symfony}
+      MARIADB_USER: ${MARIADB_USER:-symfony}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD:-symfony}
     volumes:
-      - ./docker/database/data:/var/lib/postgresql/data:rw
+      - ./docker/database/data:/var/lib/mysql:rw
     ports:
-      - 5432:5432
+      - 3006:3306
     user: symfony

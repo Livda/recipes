@@ -40,6 +40,16 @@ class RecipeFixtures extends Fixture
         ]);
         $manager->persist($recipe3);
 
+        for($i = 0; $i < 100; ++$i) {
+            $recipe = new Recipe(
+                name: 'Toto ' . $i,
+                diet: 'all',
+                season: 'all',
+                url: 'http://localhost',
+            );
+            $manager->persist($recipe);
+        }
+
         $manager->flush();
     }
 }

@@ -2,19 +2,39 @@
     <div class="form-row">
         <div class="input-group">
             <label class="sr-only form-label" for="search_search">Rechercher</label>
-            <select id="search_season" name="season" class="rounded-start form-select">*
-                <option value="all">Toute saison</option>
-                <option value="winter">Hiver</option>
-                <option value="spring">Printemps</option>
-                <option value="summer">Été</option>
-                <option value="autumn">Automne</option>
+            <select id="search_season" name="season" class="rounded-start form-select">
+                {% set seasons = [
+                    {label: 'Toute saison', value: 'all'},
+                    {label: 'Hiver', value: 'winter'},
+                    {label: 'Printemps', value: 'spring'},
+                    {label: 'Été', value: 'summer'},
+                    {label: 'Automne', value: 'autumn'},
+                ] %}
+                {% for s in seasons %}
+                    <option value="{{ s.value }}"
+                        {% if query.season is defined and query.season == s.value %}selected{% endif %}
+                    >
+                        {{- s.label -}}
+                    </option>
+                {% endfor %}
             </select>
             <select id="search_diet" name="diet" class="form-select">
-                <option value="all">Tout régime</option>
-                <option value="veggie">Veggie</option>
-                <option value="vegan">Vegan</option>
+                {% set diets = [
+                    {label: 'Tout régime', value: 'all'},
+                    {label: 'Veggie', value: 'veggie'},
+                    {label: 'Vegan', value: 'vegan'},
+                ] %}
+                {% for d in diets %}
+                    <option value="{{ d.value }}"
+                        {% if query.diet is defined and query.diet == d.value %}selected{% endif %}
+                    >
+                        {{- d.label -}}
+                    </option>
+                {% endfor %}
             </select>
-            <input type="text" id="search_search" name="search" placeholder="Rechercher par tag..." class="form-control">
+            <input type="text" id="search_search" name="search" placeholder="Rechercher par tag..." class="form-control"
+                {% if query.search is defined and query.search is not null %}value="{{ query.search }}"{% endif %}
+            >
             <div class="input-group-append">
                 <button type="submit" class="btn btn-outline-light rounded-0 rounded-end">
                     <i class="fas fa-search"></i>
